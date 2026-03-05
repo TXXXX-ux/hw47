@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Office Booklender</title>
+    <link rel="stylesheet" href="css/freemarker.css">
+</head>
+<body>
+<div class="container">
+    <h1>Список книг в офисе</h1>
+    <div class="flex-col">
+        <#list books as book>
+        <div class="row flex" style="border-bottom: 1px solid #ccc; padding: 10px;">
+            <div class="column">
+                <img src="images/coding-book.png" alt="${book.title}" style="width: 50px;">
+            </div>
+            <div class="column">
+                <strong>${book.title}</strong><br>
+                <small>${book.author}</small>
+            </div>
+            <div class="column">
+                <strong>Статус:</strong>
+                <span style="color: ${ (book.status == 'AVAILABLE')?string('green', 'red') }">
+                    ${book.status}
+                </span>
+                <#if book.status == "AVAILABLE">
+                <form action="/books/borrow" method="post">
+                    <input type="hidden" name="bookId" value="${book.id}">
+                    <button type="submit" style="background-color: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">
+                        Взять книгу
+                    </button>
+                </form>
+                <#else>
+                <form action="/books/return" method="post">
+                    <input type="hidden" name="bookId" value="${book.id}">
+                    <button type="submit" style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">
+                        Вернуть книгу
+                    </button>
+                </form>
+            </#if>
+            <div class="column">
+                <strong><a href="/book?id=${book.id}" style="text-decoration: none; color: #2196F3;">${book.title}</a></strong><br>
+            </div>
+        </div>
+        </div>
+    </#list>
+</div>
+</div>
+</body>
+</html>

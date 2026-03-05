@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head   >
+    <meta charset="UTF-8">
+    <title>Профиль пользователя</title>
+    <link rel="stylesheet" href="css/forms.css">
+</head>
+<body style="text-align: center">
+<h1>Профиль пользователя</h1>
+
+<p><b>Имя:</b> ${name}</p>
+<p><b>Email:</b> ${email}</p>
+
+<br>
+<h3>Ваша история книг:</h3>
+<ul>
+    <#list history as book>
+    <li>${book.title} (${book.author})</li>
+    <#else>
+    <p style="padding-right: 35px;">Вы еще не брали книг.</p>
+</#list>
+</ul>
+<a href="/login">Выйти с аккаунта</a>
+<p><a href="/books">Вернуться к книгам</a></p>
+</body>
+</html>
